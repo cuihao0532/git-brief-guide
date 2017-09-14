@@ -1,3 +1,210 @@
 # created by cuish
 # 2017年9月12日 22:14:21
 
+
+1、设置全局用户名、email
+git config --global user.name "cuish"
+git config --global user.email "xxx@163.com"
+
+2、在本地创建一个git仓库
+git init
+
+3、把文件添加到 stage 暂存区
+git add file.txt
+
+
+
+4、把文件从stage暂存区提交到仓库当前分支
+#一次性把暂存区的所有修改提交大仓库
+
+git commit -m "这里是提交注释"
+
+
+5、可以多次往stage暂存区添加，然后一次性提交到仓库当前分支
+git add file1.txt
+git add file2.txt
+
+git commit -m "commit two files"
+
+
+6、查看仓库状态
+git status
+
+#修改文件后没有往state添加
+git status
+输出
+#On branch master
+#Changes not staged for commit:
+# (user "git add <file>..." to update what will be committed)
+# (user "git checkout -- <file> ..." to discard changes in working directory)
+
+# modified: file.txt
+no changes added to commit (use "git add" and/or "git commit -a")
+
+#使用 git add file.txt 添加暂存区
+#使用 git checkout -- file.txt 放弃工作区的更改
+
+
+7、查看工作区做了什么修改
+git diff file.txt
+
+
+8、文件添加到stage暂存区后查看仓库状态
+git add file.txt
+git status
+输出
+#On branch master
+#Changes to be committed:
+# (use "reset HEAD <file>..." to unstage)
+# modified: file.txt
+
+#可以被提交的改变
+#使用 git reset HEAD <file> 放弃对暂存区的添加
+
+
+9、查看日志
+git log
+
+#以每次单行形式查看日志
+git loig --pretty=oneline
+
+
+10、版本回退
+
+#回退到上一个版本
+git reset --hard HEAD^
+
+#回退到上2个版本
+git reset --hard HEAD^^
+
+#回退到上100个版本
+git reset --hard HEAD~100
+
+如果回退的版本超过最多的版本次数则报错
+
+
+#回退到指定版本（以commit id前几位43q5453指定版本号）
+git reset --hard 43q5453
+
+
+11、查看每一次git命令
+git reflog
+
+
+12、工作区
+本地计算机的git仓库目录
+
+13、版本库
+
+#版本库中有一个重要的区域叫stage暂存区
+git add 把文件的修改添加到暂存区43q5453
+
+#版本库中的版本分支
+创建git仓库时自动创建一个master分支
+git commit 把暂存区的所有内容提交到当前分支
+
+
+
+14、查看工作区与当前版本库最新版本的区别
+git diff HEAD -- file.txt
+
+
+15、文件修改后未add到stage暂存区时放弃修改
+git checkout -- file.txt
+
+16、文件已经添加到stage暂存区时放弃修改
+git reset HEAD file.txt
+
+
+17、文件已经commit仓库时放弃修改
+#查看版本回退
+
+
+18、删除文件
+#从本地工作区删除文件
+del file.txt
+
+#把删除更新到stage工作区
+git rm file.txt
+
+#把文件从版本库删除
+git commit -m "delete file.txt"
+
+
+19、添加远程仓库
+
+#创建SSH key（windows下可能要把git bin目录添加到path环境变量）
+ssh-keygen -t rsa -C "xxx@163.com"
+
+#本地已有仓库，关联到远程仓库（origin为远程库的默认名字）
+git remote add origin git@github.com:cuihao0532/gitname.git
+
+#第一次把本地仓库推送/关联到远程空仓库master分支
+git push -u origin master
+
+#在本地提交后推送到远程仓库master分支
+git push origin master
+
+20、从远程仓库克隆
+
+#ssh协议
+git clone git@github.com:cuihao0532/gitname.git
+
+#https协议
+git clone https://github.com/cuihao0532/gitname.git
+
+
+21、分支
+
+#创建dev分支
+git branch dev
+
+#切换到dev分支
+git checkout dev
+
+#创建并切换到dev分支
+git branch -b dev
+
+#查看（当前）分支
+git branch
+输出分支列表，在当前分支前有*注明
+
+#把指定分支与当前分支合并
+#当前为master分支，把dev分支与当前分支合并
+git merge dev
+
+
+#删除dev分支
+git branch -d dev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
