@@ -177,10 +177,101 @@ git merge dev
 #删除dev分支
 git branch -d dev
 
+#强制删除dev分支
+git branch -D dev
 
 
+22、冲突
+
+#合并代码后可能会产生冲突
+#合并dev分支到当前分支
+git merge dev
+输出 
+Auto-merfing file.txt
+CONFICT (content): Merge config in file.txt
+Automatic merge failed; fix conficts and then commit the result.
+
+#编辑该蔡冲突的文件
+#提交解决后的文件
+git add file.txt
+git commit -m "resolve conficts"
+#删除dev分支
+git branch -d dev
 
 
+23、Fast forward模式
+合并分支时git会用[Fast forward]模式，这种模式下分出分支后会丢失分支信息。
+
+#强制禁用 Fast forward 模式合并dev分支到当前分支，并添加注释
+git merge --no-ff -m "merge with no-ff" dev
+
+#加上--no-ff参数后的合并方式，合并后的历史有分支，能看出来曾经做过合并
+
+#用git log查看分支历史
+git log --graph --pretty=oneline --abbrev-commit
+
+24、储藏工作现场
+#如果当前分支有还没有提交的
+git stash
+
+#当前分支为dev，有修改后的文件file.txt没有git add 或 没有git commit，则
+#当切换至master分支时，在dev分支上对file.txt做的修改会带到master分支上
+#在dev分支上执行git stash后，dev分支就变成了干净的；切换至master分支后不会把在dev分支上尚未add/commit的修改带到maste分支
+
+#重新切换回dev分支后，查看stash
+git stash list
+输出
+stash@{0}: WIP on dev:532512 add merge
+
+#恢复dev分支上的stash内容
+git stash apply stash@{0}
+
+#删除dev分支上保存的stash内容
+git stash drop
+
+#恢复的同时删除stash内容
+git stash pop
+
+
+25、查看远程库
+git remote
+
+#查看远程库的详细信息
+git remote -v
+
+
+26、把本地当前分支上的所有提交推送到远程库
+#推送到远程库origin的master分支
+git push origin master
+
+#推送到远程库origin的dev分支
+git push origin dev
+
+
+27、从远程库克隆到本地
+git clone git@github.com:cuihao0532/xxx.git
+
+#查看克隆后的本地分支（默认只能看到master分支）
+git branch
+输出
+* master
+
+#创建远程库的dev分支到本地
+git checkout -b dev origin/dev
+
+
+28、推送时的冲突
+#当人对同一个文件git push origin dev产生冲突时，推送失败
+#拉取当前远程库的文件到本地
+git pull
+
+#git pull失败，需要指定本地dev分支与远程origin/dev分支的链接
+git branch --set-upstream dev origin/dev
+
+#再次拉取成功
+git pull
+
+#解决冲突，git add / git commit 后再次push
 
 
 
