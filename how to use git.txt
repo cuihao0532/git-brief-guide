@@ -169,6 +169,10 @@ git branch -b dev
 git branch
 输出分支列表，在当前分支前有*注明
 
+#查看（当前）本地及远程分支
+git branch -a
+
+
 #把指定分支与当前分支合并
 #当前为master分支，把dev分支与当前分支合并
 git merge dev
@@ -179,6 +183,12 @@ git branch -d dev
 
 #强制删除dev分支
 git branch -D dev
+
+#删除远程分支
+
+#从远程仓库删除dev分支
+git push origin :dev
+
 
 
 22、冲突
@@ -275,17 +285,43 @@ git pull
 
 
 
+29、标签
+
+#在当前分支最新commit上打tag
+git tag v1.0 -m "this is comments"
 
 
+#在当前分支的某个指定的commit id 5032da 上打tag
+git tag v1.0 -m "this is comments for a commit-id" 5032da
+ 
+
+#在当前分支的某个指定的commit id 5032da 上打tag，并且用私钥签名一个tag（ 使用 -s 参数）
+git tag  -s v1.0  -m "this is a tag for commid-id 899cf6e" 899cf6e
 
 
+#显示当前所有标签
+git tag
 
 
+#显示某个tag的信息
+git tag v1.1
 
 
+#删除标签
+git tag -d v1.1
+
+#把创建的标签推送到远程仓库
+git push origin v1.0
+
+#一次性把本地的标签都推送到远程仓库
+git push origin --tags
 
 
-
+#从远程仓库删除tag
+#先从本地删除
+git tag -d v1.0 
+#再推送到远程
+git push origin :refs/tags/v1.0
 
 
 
